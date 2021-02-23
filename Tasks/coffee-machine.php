@@ -51,31 +51,37 @@ class Wallet
 class CoffeeMachine
 {
     private Beverage $beverage;
-    public int $money;
-    private Wallet $userWallet;
+    public array $coinsIn;
     private array $acceptedCoins;
+    private Wallet $userWallet;
 
     public function __construct(Wallet $userWallet, Beverage $beverage, array $coinsIn)
     {
         $this->userWallet = $userWallet;
         $this->beverage = $beverage;
-        $this->money = $this->userWallet->coinsToMoney($coinsIn);
+        $this->coinsIn = $coinsIn;
         $this->acceptedCoins = $this->userWallet->acceptedCoins;
     }
 
     public function enoughMoneyInWallet(): bool
     {
-        return $this->userWallet->coinsToMoney($this->userWallet->coins) >= $this->beverage->price;
+        if ($this->userWallet->coinsToMoney($this->userWallet->coins) < $this->beverage->price) {
+            throw new Error('Not enough money in wallet!');
+        }
+        return true;
     }
 
     public function enoughMoneyIn(): bool
     {
-        return $this->money >= $this->beverage->price;
+        if ($this->userWallet->coinsToMoney($this->coinsIn) < $this->beverage->price) {
+            throw new Error('Not enough money in machine!');
+        }
+        return true;
     }
 
     public function returnCoins(): array
     {
-        $return = $this->money - $this->beverage->price;
+        $return = $this->userWallet->coinsToMoney($this->coinsIn) - $this->beverage->price;
         $returnCoins = [];
         foreach (array_reverse($this->acceptedCoins) as $coin => $value) {
             $coinCount = floor($return / $value);
@@ -116,11 +122,12 @@ function transaction(Wallet $userWallet): array
         foreach ($userWallet->coins as $key => $walletCoin) {
             if ($coin === $walletCoin) {
                 unset($userWallet->coins[$key]);
+                break;
+            }
+            if (!in_array($coin, $userWallet->coins, true)) {
+                throw new Error("Users wallet does not have so many $coin coins");
             }
         }
-//        if (!in_array($coin, $userWallet->coins, true)) {
-//            throw new Error("Users wallet does not have so many $coin coins");
-//        }
     }
 
     return $coins;
@@ -153,8 +160,14 @@ $beverages = [
 echo beverageMenu($beverages) . PHP_EOL;
 
 $beverage = $beverages[readline('Choose Your beverage: ')];
+$coffeeMachineTest = new CoffeeMachine($userWallet, $beverage, []);
+$coffeeMachineTest->enoughMoneyInWallet();
+
 $coinsInMachine = transaction($userWallet);
 $coffeeMachine = new CoffeeMachine($userWallet, $beverage, $coinsInMachine);
+if ($coffeeMachine->enoughMoneyIn()) {
+    echo "Here is your {$beverage->beverage}!";
+}
 
 $userWallet->coins = array_merge($userWallet->coins, $coffeeMachine->returnCoins());
 
