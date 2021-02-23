@@ -86,8 +86,8 @@ class CoffeeMaker
         }
         return implode(' | ', $returnCoins);
     }
-
 }
+
 
 function beverageMenu($beverages): string
 {
@@ -98,7 +98,6 @@ function beverageMenu($beverages): string
         $menu[] = "$i. {$beverage->getBeverage()} => \xE2\x82\xAc $price";
         $i++;
     }
-
     return implode(PHP_EOL, $menu);
 }
 
