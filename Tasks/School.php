@@ -36,6 +36,7 @@ class Student
 
 class School
 {
+    private string $name;
     private array $students;
     private array $ageGrade = [
         7 => 1,
@@ -54,10 +55,26 @@ class School
         6 => [],
     ];
 
-    public function __construct(array $students)
+    public function getName(): string
     {
-        $this->students = $students;
+        return $this->name;
+    }
 
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
+    public function addStudent(Student $student): void
+    {
+        $this->students[] = $student;
+    }
+
+    public function addManyStudents(array $students): void
+    {
+        foreach ($students as $student) {
+            $this->addStudent($student);
+        }
     }
 
     public function setGradesForStudents(): void
@@ -71,7 +88,8 @@ class School
         }
     }
 
-    public function putStudentsInGrades(): void {
+    public function putStudentsInGrades(): void
+    {
         foreach ($this->ageGrade as $age => $grade) {
             foreach ($this->students as $student) {
                 if ($student->getAge() === $age) {
@@ -99,10 +117,13 @@ $students = [
     new Student('Bob', 8)
 ];
 
-$school = new School($students);
+$school = new School('ABC');
+$school->addManyStudents($students);
 $school->setGradesForStudents();
 $school->putStudentsInGrades();
 
+
+echo PHP_EOL . $school->getName() . PHP_EOL;
 foreach ($school->getGrades() as $grade => $students) {
     echo $grade . '. grade:' . PHP_EOL;
     foreach ($students as $num => $student) {
