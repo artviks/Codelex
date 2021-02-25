@@ -122,7 +122,6 @@ $school->addManyStudents($students);
 $school->setGradesForStudents();
 $school->putStudentsInGrades();
 
-
 echo PHP_EOL . $school->getName() . PHP_EOL;
 foreach ($school->getGrades() as $grade => $students) {
     echo $grade . '. grade:' . PHP_EOL;
