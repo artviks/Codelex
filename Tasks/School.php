@@ -26,6 +26,11 @@ class Student
     {
         $this->grade = $grade;
     }
+
+    public function getGrade(): string
+    {
+        return $this->grade;
+    }
 }
 
 
@@ -52,16 +57,24 @@ class School
     public function __construct(array $students)
     {
         $this->students = $students;
-        $this->setGrades($students);
 
     }
 
-    private function setGrades(array $students): void
+    public function setGradesForStudents(): void
     {
         foreach ($this->ageGrade as $age => $grade) {
-            foreach ($students as $student) {
+            foreach ($this->students as $student) {
                 if ($student->getAge() === $age) {
                     $student->setGrade($grade);
+                }
+            }
+        }
+    }
+
+    public function putStudentsInGrades(): void {
+        foreach ($this->ageGrade as $age => $grade) {
+            foreach ($this->students as $student) {
+                if ($student->getAge() === $age) {
                     $this->grades[$grade][] = $student;
                 }
             }
@@ -77,6 +90,7 @@ class School
     {
         return $this->grades;
     }
+
 }
 
 $students = [
@@ -86,6 +100,8 @@ $students = [
 ];
 
 $school = new School($students);
+$school->setGradesForStudents();
+$school->putStudentsInGrades();
 
 foreach ($school->getGrades() as $grade => $students) {
     echo $grade . '. grade:' . PHP_EOL;
