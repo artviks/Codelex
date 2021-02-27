@@ -7,7 +7,7 @@ $elements = [
     new Element('A', 5),
     new Element('B', 10),
     new Element('C', 15),
-    new Element('X', 20), // tālāk tiek izvēlēts kā tas īpašais elements
+    new Element('X', 0), // tālāk tiek izvēlēts kā tas īpašais elements
     new Element('Y', 25),
 ];
 
@@ -32,14 +32,17 @@ while ($continue === 'y') {
     if (ctype_digit($bid) && $slotMachine->setBid($bid) === 'OK'
         && $slotMachine->checkBounus($bonusElName) === 'nope') {
 
+        $slotMachine->generateCells();
         $slotMachine->updateMoney();
         echo $slotMachine->showCells();
 
-    } else if ($slotMachine->checkBounus($bonusElName) === $bonusElName) {
+        if ($slotMachine->checkBounus($bonusElName) === $bonusElName) {
 
-        for ($i = 0; $i < 5; $i++) {
-            $slotMachine->updateMoney();
-            echo $slotMachine->showCells();
+            for ($i = 0; $i < 5; $i++) {
+                $slotMachine->generateCells();
+                $slotMachine->updateMoney();
+                echo $slotMachine->showCells();
+            }
         }
 
     } else {
