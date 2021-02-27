@@ -35,19 +35,14 @@ class SlotMachine
             $playedComb[$cell->name][] = $index;
         }
 
-
-        //$cellWinCount = []; var izmantot, ja ar vienu elementu ir vairākas uzvaras. Bet tas ir gandrīz neiespējami.
-
         foreach ($playedComb as $cellName => $combs) {
             foreach ($winCombs as $winComb) {
                 if (in_array($winComb[0], $combs, true) && in_array($winComb[1], $combs, true)
                     && in_array($winComb[2], $combs, true)) {
-                    //$cellWinCount[] = $cellName;
                     return $cellName;
                 }
             }
         }
-
         return 'n';
     }
 
