@@ -29,14 +29,13 @@ while ($continue === 'y') {
 
     $slotMachine->generateCells();
 
-    if (ctype_digit($bid) && $slotMachine->setBid($bid) === 'OK'
-        && $slotMachine->checkBounus($bonusElName) === 'nope') {
+    if (ctype_digit($bid) && $slotMachine->setBid($bid) === 'OK') {
 
         $slotMachine->generateCells();
         $slotMachine->updateMoney('bid');
         echo $slotMachine->showCells();
 
-        if ($slotMachine->checkBounus($bonusElName) === $bonusElName) {
+        if ($slotMachine->hasWon() === $bonusElName) {
 
             for ($i = 0; $i < 5; $i++) {
                 $slotMachine->generateCells();

@@ -78,13 +78,6 @@ class SlotMachine
         return $this->money;
     }
 
-    public function checkBounus(string $bonusEl): string {
-        if ($this->hasWon() === $bonusEl) {
-            return $bonusEl;
-        }
-        return 'nope';
-    }
-
     public function showCells(): string {
         $display = [''];
         $acc = 0;
