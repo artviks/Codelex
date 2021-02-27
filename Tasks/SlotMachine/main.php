@@ -33,14 +33,14 @@ while ($continue === 'y') {
         && $slotMachine->checkBounus($bonusElName) === 'nope') {
 
         $slotMachine->generateCells();
-        $slotMachine->updateMoney();
+        $slotMachine->updateMoney('bid');
         echo $slotMachine->showCells();
 
         if ($slotMachine->checkBounus($bonusElName) === $bonusElName) {
 
             for ($i = 0; $i < 5; $i++) {
                 $slotMachine->generateCells();
-                $slotMachine->updateMoney();
+                $slotMachine->updateMoney('no bid');
                 echo $slotMachine->showCells();
             }
         }

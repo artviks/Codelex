@@ -51,9 +51,11 @@ class SlotMachine
         return 'n';
     }
 
-    public function updateMoney(): void
+    public function updateMoney(string $bid): void
     {
-        $this->setMoney(-$this->bid);
+        if ($bid === 'bid') {
+            $this->setMoney(-$this->bid);
+        }
 
         foreach ($this->elements as $element) {
             if ($this->hasWon() === $element->name) {
