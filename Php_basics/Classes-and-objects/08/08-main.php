@@ -1,6 +1,7 @@
 <?php
 
 require_once 'SavingsAccount.php';
+require_once '08-functions.php';
 
 $account = new SavingsAccount(readline('How much money is in the account?: '));
 $account->setAnnualInterest(readline('Enter the annual interest rate: '));
@@ -20,7 +21,7 @@ while ($months > 0) {
 }
 
 
-echo 'Total deposited: ' . $account->getTotalDeposit() . PHP_EOL
-    . 'Total withdrawal: ' . $account->getTotalWithdrawal() . PHP_EOL
-    . 'Interest earned: ' . $account->getInterestEarned() . PHP_EOL
-    . 'Ending balance: ' . $account->getBalance();
+echo 'Total deposited: ' . format($account->getTotalDeposit()) . PHP_EOL
+    . 'Total withdrawal: ' . format($account->getTotalWithdrawal()) . PHP_EOL
+    . 'Interest earned: ' . format($account->getInterestEarned()) . PHP_EOL
+    . 'Ending balance: ' . format($account->getBalance());
