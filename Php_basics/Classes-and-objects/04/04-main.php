@@ -1,7 +1,7 @@
 <?php
 
 require_once 'Movie.php';
-require_once 'functions.php';
+require_once '04-functions.php';
 
 $movies = [
     new Movie('Casino Royale', 'Eon Productions', 'PG13'),
