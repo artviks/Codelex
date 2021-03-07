@@ -28,8 +28,8 @@ class SavingsAccount
 
     public function addMonthlyInterest(): void
     {
-        $this->interestEarned += $this->balance * $this->annualInterest / 12;
-        $this->balance *= (1 + $this->annualInterest / 12);
+        $this->interestEarned += $this->balance * $this->annualInterest / 100 / 12;
+        $this->balance *= (1 + $this->annualInterest / 100 / 12);
     }
 
     public function setAnnualInterest(float $annualInterest): void

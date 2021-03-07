@@ -33,6 +33,9 @@ class Video
 
     public function rate(int $rating): void
     {
+        if ($rating<0 && $rating>10) {
+            throw new OutOfRangeException('Can rate only 0-10');
+        }
         $this->ratings[] = $rating;
     }
 

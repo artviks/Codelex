@@ -3,7 +3,7 @@
 
 // All input money is in cents
 require_once 'Account.php';
-require_once 'functions.php';
+require_once '11-functions.php';
 
 $matt = new Account('Matt`s account', 100000);
 $my = new Account('My account', 0);
