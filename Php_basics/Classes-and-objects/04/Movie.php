@@ -13,6 +13,16 @@ class Movie
         $this->rating = $rating;
     }
 
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function getStudio(): string
+    {
+        return $this->studio;
+    }
+
     public function getRating(): string
     {
         return $this->rating;
