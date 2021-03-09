@@ -3,7 +3,7 @@
 class FlowerShop
 {
     private const DISCOUNT = 20;
-    private Flower $order;
+    public Flower $order;
     private string $gender = '';
     private array $suppliers;
     private FlowerCollection $flowers;
@@ -22,6 +22,8 @@ class FlowerShop
 
     public function order(Flower $order): void
     {
+        $index = $this->flowers->findIndexByName($order->name());
+        $order->setPrice($this->flowers->flowers()[$index]->price());
         $this->order = $order;
     }
 
@@ -41,5 +43,18 @@ class FlowerShop
     public function getFlowers(): FlowerCollection
     {
         return $this->flowers;
+    }
+
+    public function remove(): void
+    {
+        $this->flowers->removeOne($this->order);
+
+        $count = $this->order->amount();
+        foreach ($this->suppliers as $supplier) {
+            $i = $supplier->findIndexByName($this->order->name());
+            if($count > $supplier->showStock()[$i]->amount()) {
+                
+            }
+        }
     }
 }

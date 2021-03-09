@@ -21,6 +21,16 @@ class Gardener implements Supplier
         return $this->flowers;
     }
 
+    public function remove(Flower $flower): void
+    {
+        $this->flowers->removeOne($flower);
+    }
+
+    public function findIndexByName(string $name): ?int
+    {
+        return $this->flowers->findIndexByName($name);
+    }
+
     public function deliverFlower(Flower $flower): Flower
     {
         $this->flowers->removeOne($flower);

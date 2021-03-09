@@ -21,10 +21,13 @@ class LocalWarehouse implements Supplier
         return $this->flowers;
     }
 
-    public function deliverFlower(Flower $flower): Flower
+    public function remove(Flower $flower): void
     {
         $this->flowers->removeOne($flower);
-        return $flower;
     }
 
+    public function findIndexByName(string $name): ?int
+    {
+        return $this->flowers->findIndexByName($name);
+    }
 }

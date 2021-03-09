@@ -2,7 +2,9 @@
 
 interface Supplier
 {
-    public function deliverFlower(Flower $flower): Flower;
-
     public function showStock(): FlowerCollection;
+
+    public function remove(Flower $flower): void;
+
+    public function findIndexByName(string $name): ?int;
 }

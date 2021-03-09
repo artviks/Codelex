@@ -10,23 +10,30 @@ require_once 'FlowerShop.php';
 
 $gardener = new Gardener();
 $gardener->grow([
-    new Flower('Yellow Tulip', 10, 100),
-    new Flower('Red Tulip', 10, 110),
-    new Flower('Blue Tulip', 10, 120),
-    new Flower('White Rose', 10, 200),
-    new Flower('Pink Rose', 10, 210),
-    new Flower('Red Rose', 10, 220),
+    new Flower('YellowTulip', 10, 100),
+    new Flower('RedTulip', 10, 110),
+    new Flower('BlueTulip', 10, 120),
+    new Flower('WhiteRose', 10, 200),
+    new Flower('PinkRose', 10, 210),
+    new Flower('RedRose', 10, 220),
 ]);
 
 $local = new LocalWarehouse();
-$local->buyFlower($gardener->deliverFlower(new Flower('Red Tulip', 4, 110)));
+$local->buyFlower($gardener->deliverFlower(new Flower('RedTulip', 4, 110)));
 
 $other = new OtherWarehouse();
-$other->buyFlower($gardener->deliverFlower(new Flower('Red Tulip', 2, 110)));
+$other->buyFlower($gardener->deliverFlower(new Flower('RedTulip', 2, 110)));
 
+$input = 'RedTulip 9';
+$data = explode(' ', $input);
 
-
+$order = new Flower($data[0], (int)$data[1]);
 $suppliers = [$gardener, $local, $other];
 
 $shop = new FlowerShop($suppliers);
+$shop->order($order);
+var_dump($shop->order);
+
+$shop->remove();
+
 var_dump($shop->getFlowers());
