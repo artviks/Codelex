@@ -6,10 +6,13 @@ class FlowerShop
     private Flower $order;
     private string $gender = '';
     private array $suppliers;
+    private FlowerCollection $flowers;
 
     public function __construct(array $suppliers)
     {
+        $this->flowers = new FlowerCollection();
         $this->addSuppliers($suppliers);
+
     }
 
     public function gender(string $gender): void
@@ -25,6 +28,7 @@ class FlowerShop
     public function addSupplier(Supplier $supplier): void
     {
         $this->suppliers[] = $supplier;
+        $this->flowers->add($supplier->showStock()->flowers());
     }
 
     public function addSuppliers(array $suppliers): void
@@ -34,13 +38,8 @@ class FlowerShop
         }
     }
 
-    public function available(): array
+    public function getFlowers(): FlowerCollection
     {
-        return $this->suppliers;
-    }
-
-    public function shipOrder(): array
-    {
-
+        return $this->flowers;
     }
 }

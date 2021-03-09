@@ -18,26 +18,27 @@ class FlowerCollection
 
     public function addOne(Flower $flower): void
     {
-        $this->flowers[] = $flower;
+        if ($this->findIndexByName($flower->name()) === null) {
+            $this->flowers[] = $flower;
+        } else {
+            $this->flowers()[$this->findIndexByName($flower->name())]->add($flower->amount());
+        }
     }
 
-    public function removeOne(Flower $removedFlower): Flower
+    public function removeOne(Flower $removedFlower): void
     {
         foreach ($this->flowers() as $flower) {
             if ($flower->name() === $removedFlower->name()) {
                 $flower->pick($removedFlower->amount());
-                $removedFlower->setPrice($flower->price());
             }
-
         }
-        return $removedFlower;
     }
 
-    public function find(Flower $item): ?Flower
+    public function findIndexByName(string $name): ?int
     {
-        foreach ($this->flowers as $flower) {
-            if ($flower->name() === $item->name()) {
-                return $flower;
+        foreach ($this->flowers as $i => $flower) {
+            if ($flower->name() === $name) {
+                return $i;
             }
         }
         return null;

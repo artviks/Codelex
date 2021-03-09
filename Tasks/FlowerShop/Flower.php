@@ -4,9 +4,9 @@ class Flower
 {
     private string $name;
     private int $amount;
-    private int $price;
+    private ?int $price;
 
-    public function __construct(string $name, int $amount, int $price)
+    public function __construct(string $name, int $amount, int $price = null)
      {
          $this->name = $name;
          $this->amount = $amount;
@@ -28,7 +28,12 @@ class Flower
         $this->amount -= $amount;
     }
 
-    public function price(): int
+    public function add(int $amount): void
+    {
+        $this->amount += $amount;
+    }
+
+    public function price(): ?int
     {
         return $this->price;
     }
