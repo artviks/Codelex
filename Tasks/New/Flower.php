@@ -6,22 +6,29 @@ class Flower
     private int $amount;
     private int $price;
 
-    public function __construct(string $name, int $amount)
+    public function __construct(string $name, int $amount, int $price)
      {
          $this->name = $name;
          $this->amount = $amount;
+         $this->price = $price;
      }
 
-    public function getName(): string
+    public function name(): string
     {
         return $this->name;
     }
-    public function getAmount(): int
+
+    public function amount(): int
     {
         return $this->amount;
     }
 
-    public function getPrice(): int
+    public function pick(int $amount): void
+    {
+        $this->amount -= $amount;
+    }
+
+    public function price(): int
     {
         return $this->price;
     }

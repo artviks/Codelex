@@ -4,25 +4,42 @@ class FlowerCollection
 {
     private array $flowers = [];
 
-    public function setFlower(Flower $flower): void
+    public function flowers(): array
+    {
+        return $this->flowers;
+    }
+
+    public function add(array $flowers): void
+    {
+        foreach ($flowers as $flower) {
+            $this->addOne($flower);
+        }
+    }
+
+    public function addOne(Flower $flower): void
     {
         $this->flowers[] = $flower;
     }
 
-    public function setFlowers(array $flowers): void
+    public function removeOne(Flower $removedFlower): Flower
     {
-        foreach ($flowers as $flower) {
-            $this->setFlower($flower);
+        foreach ($this->flowers() as $flower) {
+            if ($flower->name() === $removedFlower->name()) {
+                $flower->pick($removedFlower->amount());
+                $removedFlower->setPrice($flower->price());
+            }
+
         }
+        return $removedFlower;
     }
 
-    public function removeFlowers(): void
+    public function find(Flower $item): ?Flower
     {
-        $this->flowers = [];
-    }
-
-    public function getFlowers(): array
-    {
-        return $this->flowers;
+        foreach ($this->flowers as $flower) {
+            if ($flower->name() === $item->name()) {
+                return $flower;
+            }
+        }
+        return null;
     }
 }
