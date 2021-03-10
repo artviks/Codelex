@@ -25,16 +25,21 @@ $other = new OtherWarehouse();
 $other->buyFlower($gardener->deliverFlower(new Flower('RedTulip', 2, 110)));
 
 
-$input = 'RedTulip 9';
+$shop = new FlowerShop([$local, $gardener, $other]);
+
+foreach ($shop->getFlowers()->flowers() as $flower) {
+    echo $flower->name() . ', ' . $flower->amount() . ' pcs, price ' . $flower->price() . PHP_EOL;
+}
+
+
+$input = readline('Choose: ');
 $data = explode(' ', $input);
-
 $order = new Flower($data[0], (int)$data[1]);
-$suppliers = [$gardener, $local, $other];
-
-$shop = new FlowerShop($suppliers);
 $shop->order($order);
-$shop->gender('f');
+
+$gender = readline('Gender: ');
+$shop->gender($gender);
+
+echo 'Total price: ' . $shop->totalPrice();
 
 $shop->remove();
-
-var_dump($shop->totalPrice());
