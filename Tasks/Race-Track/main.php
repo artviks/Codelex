@@ -7,9 +7,20 @@
 //   // print("\033[2J\033[;H");
 //}
 
-require_once 'Car.php';
+require_once 'MovingObjects/Car.php';
+require_once 'MovingObjects/MovingObjectCollection.php';
+require_once 'RaceTrack.php';
+require_once 'Race.php';
 
-$car = new Car('car');
-$car->setSpeed(1, 10);
 
-echo $car->speed();
+$participants = new MovingObjectCollection();
+$participants->addMany([
+    new Car('A', 1, 2),
+    new Car('B', 1, 3)
+]);
+
+$race = new Race(new RaceTrack(30, '*'), $participants);
+
+foreach ($race->track()->show() as $row) {
+    echo implode(' ', $row) . PHP_EOL;
+}
