@@ -15,6 +15,14 @@ class FlowerShop
 
     }
 
+    public function totalPrice(): int
+    {
+        if ($this->gender === 'f') {
+            return $this->order->price() * $this->order->amount() * (1 - self::DISCOUNT / 100);
+        }
+        return $this->order->price() * $this->order->amount();
+    }
+
     public function gender(string $gender): void
     {
         $this->gender = $gender;
@@ -48,13 +56,5 @@ class FlowerShop
     public function remove(): void
     {
         $this->flowers->removeOne($this->order);
-
-        $count = $this->order->amount();
-        foreach ($this->suppliers as $supplier) {
-            $i = $supplier->findIndexByName($this->order->name());
-            if($count > $supplier->showStock()[$i]->amount()) {
-                
-            }
-        }
     }
 }

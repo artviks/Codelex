@@ -24,6 +24,7 @@ $local->buyFlower($gardener->deliverFlower(new Flower('RedTulip', 4, 110)));
 $other = new OtherWarehouse();
 $other->buyFlower($gardener->deliverFlower(new Flower('RedTulip', 2, 110)));
 
+
 $input = 'RedTulip 9';
 $data = explode(' ', $input);
 
@@ -32,8 +33,8 @@ $suppliers = [$gardener, $local, $other];
 
 $shop = new FlowerShop($suppliers);
 $shop->order($order);
-var_dump($shop->order);
+$shop->gender('f');
 
 $shop->remove();
 
-var_dump($shop->getFlowers());
+var_dump($shop->totalPrice());
