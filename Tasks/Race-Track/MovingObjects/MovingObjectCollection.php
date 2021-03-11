@@ -1,23 +1,28 @@
 <?php
 
-class MovingObjectCollection
+class MovingObjectCollection implements IteratorAggregate
 {
     private array $collection = [];
 
-    public function add(MovingObject $object): void
+    public function add(MovingObject $racer): void
     {
-        $this->collection[] = $object;
+        $this->collection[] = $racer;
     }
 
-    public function addMany(array $objects): void
+    public function addMany(array $racers): void
     {
-        foreach ($objects as $object) {
-            $this->add($object);
+        foreach ($racers as $racer) {
+            $this->add($racer);
         }
     }
 
     public function size(): int
     {
         return count($this->collection);
+    }
+
+    public function getIterator(): ArrayIterator
+    {
+        return new ArrayIterator($this->collection);
     }
 }

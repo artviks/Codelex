@@ -2,7 +2,7 @@
 
 require_once 'MovingObject.php';
 
-class Car implements MovingObject
+class Bike implements MovingObject
 {
     private string $name;
     private int $minSpeed;
@@ -29,4 +29,5 @@ class Car implements MovingObject
     {
         $this->maxSpeed += $speed;
     }
+
 }

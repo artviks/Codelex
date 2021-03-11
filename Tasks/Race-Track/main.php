@@ -8,19 +8,30 @@
 //}
 
 require_once 'MovingObjects/Car.php';
+require_once 'MovingObjects/Bike.php';
 require_once 'MovingObjects/MovingObjectCollection.php';
 require_once 'RaceTrack.php';
 require_once 'Race.php';
 
 
-$participants = new MovingObjectCollection();
-$participants->addMany([
-    new Car('A', 1, 2),
-    new Car('B', 1, 3)
+$competitors = new MovingObjectCollection();
+$competitors->addMany([
+    new Car('A', 1, 3),
+    new Car('B', 0, 4),
+    new Bike('C', 2, 3)
 ]);
 
-$race = new Race(new RaceTrack(30, '*'), $participants);
+$track = new RaceTrack(10, '-');
+$race = new Race($track, $competitors);
 
-foreach ($race->track()->show() as $row) {
-    echo implode(' ', $row) . PHP_EOL;
+
+for ($i = 0; $i < 5; $i++) {
+    $race->startRacing();
+    foreach ($track->show() as $row) {
+        echo implode(' ', $row) . PHP_EOL;
+    }
+    sleep(1);
+  //  echo "\033[3A";
+
 }
+ var_dump($race->getLeaderBoard());
