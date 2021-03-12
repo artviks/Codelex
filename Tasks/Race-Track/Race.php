@@ -4,41 +4,49 @@ class Race
 {
     private RaceTrack $track;
     private CompetitorCollection $competitors;
+    private LeaderBoard $board;
 
-    public function __construct(RaceTrack $track, CompetitorCollection $competitors)
+    public function __construct(RaceTrack $track, CompetitorCollection $competitors, LeaderBoard $board)
     {
         $this->track = $track;
         $this->competitors = $competitors;
-        $this->track->buildTrack($this->competitors->size());
+        $this->board = $board;
+        $this->track->addLanes($this->competitors->size());
         $this->getReady();
     }
 
-    public function startRacing(): void
+    public function startRacing(int $time): void
     {
-        foreach ($this->competitors as $i => $competitor)
+        foreach ($this->competitors as $row => $competitor)
         {
-            $this->move($competitor, $i);
+            $this->move($competitor, $row, $time);
         }
     }
 
-    private function move(Competitor $competitor, int $row): void
+    private function move(Competitor $competitor, int $row, int $time): void
     {
         $symbol = $this->symbol($competitor);
         $speed = $competitor->vehicle()->speed();
         $index = $this->find($competitor, $row) + $speed;
 
+        if ($competitor->vehicle()->crashed()) {
+            $competitor->stop();
+            $this->board->addCrashed($competitor);
+        }
 
-        if ($speed > 0 && $this->track->length() > $index)
+
+        if ($speed > 0 && $this->track->length() > $index && $competitor->isMoving())
         {
             $this->track->setCells($row, $index, $symbol);
-            $this->track->setCells($row, $this->find($competitor, $row), $this->track->pavement());
+            $this->cleanPreviousPosition($competitor, $row);
         }
 
         if ($this->track->length() <= $index && $competitor->isMoving())
         {
-            $this->track->setCells($row, $this->find($competitor, $row), $this->track->pavement());
+            $this->cleanPreviousPosition($competitor, $row);
             $this->track->setCells($row, $this->track->length() - 1, $symbol);
             $competitor->stop();
+            $this->board->addFinished($competitor, $time);
         }
     }
 
@@ -70,6 +78,11 @@ class Race
     private function symbol(Competitor $competitor): string
     {
         return $competitor->name()[0];
+    }
+
+    private function cleanPreviousPosition(Competitor $competitor, int $row): void
+    {
+        $this->track->setCells($row, $this->find($competitor, $row), $this->track->pavement());
     }
 
 

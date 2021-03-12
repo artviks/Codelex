@@ -7,4 +7,6 @@ interface MovingObject
     public function speed(): int;
 
     public function addMaxSpeed(int $speed): void;
+
+    public function crashed(): bool;
 }

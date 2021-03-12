@@ -1,35 +1,35 @@
 <?php
 
-//for ($i = 1; $i < 11; $i++) {
-//    echo "$i\r";
-//    sleep(1);
-//   // echo "\033[1B";
-//   // print("\033[2J\033[;H");
-//}
-
-
 require_once 'MovingObjects/MovingObjectCollection.php';
 require_once 'Competitors/CompetitorCollection.php';
 require_once 'RaceTrack.php';
+require_once 'LeaderBoard.php';
 require_once 'Race.php';
-
 
 $competitors = new CompetitorCollection();
 $competitors->addMany([
-    new FastCompetitor('Hamilton', new Car('Mercedes', 1, 4)),
-    new SlowCompetitor('Block', new Car('Ford', 1, 4)),
-    new FastCompetitor('Rossi', new Bike('Ducati', 2, 3))
+    new FastCompetitor('Hamilton', new Car('Mercedes', 1, 4, 2)),
+    new SlowCompetitor('Block', new Car('Ford', 1, 4, 5)),
+    new FastCompetitor('Rossi', new Bike('Ducati', 2, 3, 10))
 ]);
 
 $track = new RaceTrack(20, '-');
-$race = new Race($track, $competitors);
+$leaderBoard = new LeaderBoard();
+$race = new Race($track, $competitors, $leaderBoard);
 
+
+
+$interval = 1;
+$time = 0;
 do {
-    $race->startRacing();
+    $time += $interval;
+
+    $race->startRacing($time);
+
     foreach ($track->show() as $row) {
         echo implode(' ', $row) . PHP_EOL;
     }
-    sleep(1);
+    sleep($interval);
 
     if (!$race->isOver()) {
         echo "\033[3A";
@@ -37,3 +37,7 @@ do {
 
 
 } while (!$race->isOver());
+
+foreach ($leaderBoard->show() as $competitor => $time) {
+    echo "$competitor -> $time" . PHP_EOL;
+}

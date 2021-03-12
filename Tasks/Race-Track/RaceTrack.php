@@ -27,7 +27,7 @@ class RaceTrack
         return $this->length;
     }
 
-    public function buildTrack(int $participants): void
+    public function addLanes(int $participants): void
     {
         for ($r = 0; $r < $participants; $r++) {
             for ($l = 0; $l < $this->length; $l++) {
