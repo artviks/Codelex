@@ -19,46 +19,36 @@ class Race
     {
         foreach ($this->competitors as $row => $competitor)
         {
+            $this->checkCrash($competitor);
             $this->move($competitor, $row, $time);
-        }
-    }
-
-    private function move(Competitor $competitor, int $row, int $time): void
-    {
-        $symbol = $this->symbol($competitor);
-        $speed = $competitor->vehicle()->speed();
-        $index = $this->find($competitor, $row) + $speed;
-
-        if ($competitor->vehicle()->crashed()) {
-            $competitor->stop();
-            $this->board->addCrashed($competitor);
-        }
-
-
-        if ($speed > 0 && $this->track->length() > $index && $competitor->isMoving())
-        {
-            $this->track->setCells($row, $index, $symbol);
-            $this->cleanPreviousPosition($competitor, $row);
-        }
-
-        if ($this->track->length() <= $index && $competitor->isMoving())
-        {
-            $this->cleanPreviousPosition($competitor, $row);
-            $this->track->setCells($row, $this->track->length() - 1, $symbol);
-            $competitor->stop();
-            $this->board->addFinished($competitor, $time);
         }
     }
 
     public function isOver(): bool
     {
-        $stopped = [];
-        foreach ($this->competitors as $i => $competitor) {
-            if (!$competitor->isMoving()) {
-                $stopped[$i] = $competitor;
-            }
+        return count(array_filter($this->competitors->getIterator()->getArrayCopy(),
+                fn (Competitor $competitor) => !$competitor->isMoving()))
+            === $this->competitors->size();
+    }
+
+    private function move(Competitor $competitor, int $row, int $time): void
+    {
+        $speed = $competitor->vehicle()->speed();
+        $index = $this->find($competitor, $row) + $speed;
+
+        if (!$this->finished($index) && $competitor->isMoving())
+        {
+            $this->track->setCells($row, $index, $this->symbol($competitor));
+            $this->cleanPreviousPosition($competitor, $row);
         }
-        return count($stopped) === $this->competitors->size();
+
+        if ($this->finished($index) && $competitor->isMoving())
+        {
+            $this->cleanPreviousPosition($competitor, $row);
+            $this->track->setCells($row, $this->track->length() - 1, $this->symbol($competitor));
+            $competitor->stop();
+            $this->board->addFinished($competitor, $time);
+        }
     }
 
     private function getReady(): void
@@ -85,5 +75,18 @@ class Race
         $this->track->setCells($row, $this->find($competitor, $row), $this->track->pavement());
     }
 
+    private function checkCrash(Competitor $competitor): void
+    {
+        if ($competitor->vehicle()->crashed())
+        {
+            $competitor->stop();
+            $this->board->addCrashed($competitor);
+        }
+    }
+
+    private function finished(int $index): bool
+    {
+        return $this->track->length() <= $index;
+    }
 
 }
