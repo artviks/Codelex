@@ -1,18 +1,21 @@
 <?php
 
+require_once 'Bike.php';
+require_once 'Car.php';
+
 class MovingObjectCollection implements IteratorAggregate
 {
     private array $collection = [];
 
-    public function add(MovingObject $racer): void
+    public function add(MovingObject $vehicle): void
     {
-        $this->collection[] = $racer;
+        $this->collection[] = $vehicle;
     }
 
-    public function addMany(array $racers): void
+    public function addMany(array $vehicles): void
     {
-        foreach ($racers as $racer) {
-            $this->add($racer);
+        foreach ($vehicles as $vehicle) {
+            $this->add($vehicle);
         }
     }
 

@@ -7,31 +7,33 @@
 //   // print("\033[2J\033[;H");
 //}
 
-require_once 'MovingObjects/Car.php';
-require_once 'MovingObjects/Bike.php';
+
 require_once 'MovingObjects/MovingObjectCollection.php';
+require_once 'Competitors/CompetitorCollection.php';
 require_once 'RaceTrack.php';
 require_once 'Race.php';
 
 
-$competitors = new MovingObjectCollection();
+$competitors = new CompetitorCollection();
 $competitors->addMany([
-    new Car('A', 1, 3),
-    new Car('B', 0, 4),
-    new Bike('C', 2, 3)
+    new FastCompetitor('Hamilton', new Car('Mercedes', 1, 4)),
+    new SlowCompetitor('Block', new Car('Ford', 1, 4)),
+    new FastCompetitor('Rossi', new Bike('Ducati', 2, 3))
 ]);
 
-$track = new RaceTrack(10, '-');
+$track = new RaceTrack(20, '-');
 $race = new Race($track, $competitors);
 
-
-for ($i = 0; $i < 5; $i++) {
+do {
     $race->startRacing();
     foreach ($track->show() as $row) {
         echo implode(' ', $row) . PHP_EOL;
     }
     sleep(1);
-  //  echo "\033[3A";
 
-}
- var_dump($race->getLeaderBoard());
+    if (!$race->isOver()) {
+        echo "\033[3A";
+    }
+
+
+} while (!$race->isOver());

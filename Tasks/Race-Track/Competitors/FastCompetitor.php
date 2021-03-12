@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Competitor.php';
+
 class FastCompetitor implements Competitor
 {
     private string $name;
@@ -28,4 +30,13 @@ class FastCompetitor implements Competitor
         $this->isMoving = false;
     }
 
+    public function name(): string
+    {
+        return $this->name;
+    }
+
+    public function vehicle(): MovingObject
+    {
+        return $this->vehicle;
+    }
 }
