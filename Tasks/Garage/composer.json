@@ -1,0 +1,16 @@
+{
+    "name": "artur/garage",
+    "description": "",
+    "authors": [
+        {
+            "name": "Artūrs Vīksne",
+            "email": "artursviksne04@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Garage\\": "app/"
+        }
+    }
+}
