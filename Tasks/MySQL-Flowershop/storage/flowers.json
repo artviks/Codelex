@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Blue Tulip",
+    "amount": 10,
+    "price": 150
+  },
+  {
+    "name": "Blue Rose",
+    "amount": 10,
+    "price": 250
+  }
+]

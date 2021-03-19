@@ -18,10 +18,10 @@ $gardener->grow([
     new Flower('RedRose', 10, 220),
 ]);
 
-$local = new LocalWarehouse();
+$local = new JSONWarehouse();
 $local->buyFlower($gardener->deliverFlower(new Flower('RedTulip', 4, 110)));
 
-$other = new OtherWarehouse();
+$other = new DBWarehouse();
 $other->buyFlower($gardener->deliverFlower(new Flower('RedTulip', 2, 110)));
 
 

@@ -1,0 +1,18 @@
+{
+    "name": "artur/my-sql-flowershop",
+    "description": "",
+    "authors": [
+        {
+            "name": "Artūrs Vīksne",
+            "email": "artursviksne04@gmail.com"
+        }
+    ],
+    "require": {
+        "nikic/fast-route": "^1.3"
+    },
+    "autoload": {
+        "classmap": [
+            "./"
+        ]
+    }
+}
