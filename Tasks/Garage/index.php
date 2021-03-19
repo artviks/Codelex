@@ -1,8 +1,13 @@
 <?php
 
 require_once "vendor/autoload.php";
-?>
 
-<form action="app/add-status.php" method="GET">
-    <input name="rent" type="button" value="Rent">
-</form>
+$id = key($_POST);
+$status = $_POST[$id];
+
+$app = new \App\App();
+$app->setStatus($id, $status);
+
+$table = $app->getData();
+
+require_once 'app/Views/index.view.php';

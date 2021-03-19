@@ -7,10 +7,12 @@
             "email": "artursviksne04@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+      "ext-json": "*"
+    },
     "autoload": {
         "psr-4": {
-            "Garage\\": "app/"
+            "App\\": "app/"
         }
     }
 }
