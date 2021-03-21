@@ -1,9 +1,6 @@
-
-<html lang="en">
-<body>
+<?php require 'partials/header.php' ?>
 
 <h2>Flower Shop</h2>
-
 <table style="width:250px">
     <tr>
         <th>Flower</th>
@@ -17,8 +14,6 @@
             <td><?= $flower->price() ?></td>
         </tr>
     <?php endforeach; ?>
-
 </table>
 
-</body>
-</html>
+<?php require 'partials/footer.php' ?>

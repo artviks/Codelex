@@ -9,12 +9,22 @@ class Shop
     private const MARKUP = 20;
     private const DISCOUNT = 20;
     private ProductCollection $items;
+    private array $warehouses = [];
 
     public function __construct()
     {
         $this->items = new ProductCollection();
         $this->addSuppliers();
+    }
 
+    public function warehouses(): array
+    {
+        return $this->warehouses;
+    }
+
+    public function items(): ProductCollection
+    {
+        return $this->items;
     }
 
     private function addSuppliers(): void
@@ -26,10 +36,11 @@ class Shop
                 (new DBWarehouse)->items()->collection()
             )
         );
-    }
 
-    public function items(): ProductCollection
-    {
-        return $this->items;
+        $this->warehouses = [
+            CSVWarehouse::class,
+            JSONWarehouse::class,
+            DBWarehouse::class
+        ];
     }
 }

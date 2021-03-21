@@ -1,23 +1,11 @@
-<html lang="en">
-<body>
+<?php require 'partials/header.php' ?>
 
 <h2>Warehouses</h2>
 
-<table style="width:250px">
-    <tr>
-        <th>Flower</th>
-        <th>Amount</th>
-        <th>Price</th>
-    </tr>
-    <?php foreach ($flowers as $flower) : ?>
-        <tr>
-            <td><?= $flower->name ?></td>
-            <td><?= $flower->amount ?></td>
-            <td><?= $flower->price ?></td>
-        </tr>
+<ul>
+    <?php foreach ($warehouses as $warehouse) : ?>
+        <li><?= $warehouse ?></li>
     <?php endforeach; ?>
+</ul>
 
-</table>
-
-</body>
-</html>
+<?php require 'partials/footer.php' ?>
