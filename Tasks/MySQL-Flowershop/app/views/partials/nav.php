@@ -1,5 +1,7 @@
-<nav>
-    <a href="/">HOME</a>
-    <a href="/shop">SHOP</a>
-    <a href="/warehouses">Warehouses</a>
+<nav class='nav main-nav'>
+    <ul>
+        <li><a href="/">HOME</a></li>
+        <li><a href="/shop">SHOP</a></li>
+        <li><a href="/warehouses">Warehouses</a></li>
+    </ul>
 </nav>

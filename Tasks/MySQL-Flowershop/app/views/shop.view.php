@@ -9,7 +9,7 @@
     <input type="submit" value="Female" name="gender">
 </form>
 
-<table style="width:250px">
+<table>
     <tr>
         <th>Flower</th>
         <th>Amount</th>

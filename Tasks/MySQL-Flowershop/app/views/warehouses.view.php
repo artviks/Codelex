@@ -2,7 +2,7 @@
 
 <h2>Warehouses</h2>
 
-<ul>
+<ul class="list">
     <?php foreach ($warehouses as $warehouse) : ?>
         <li><?= $warehouse ?></li>
     <?php endforeach; ?>
