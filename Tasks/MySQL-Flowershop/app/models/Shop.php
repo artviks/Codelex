@@ -15,6 +15,7 @@ class Shop
     {
         $this->items = new ProductCollection();
         $this->addSuppliers();
+        $this->addMarkup();
     }
 
     public function warehouses(): array
@@ -25,6 +26,14 @@ class Shop
     public function items(): ProductCollection
     {
         return $this->items;
+    }
+
+    public function discount(): void
+    {
+        if ($_POST['gender'] === "Female")
+        {
+            $this->addDiscount();
+        }
     }
 
     private function addSuppliers(): void
@@ -42,5 +51,21 @@ class Shop
             JSONWarehouse::class,
             DBWarehouse::class
         ];
+    }
+
+    private function addMarkup(): void
+    {
+        foreach ($this->items->collection() as $product)
+        {
+            $product->setPrice($product->price() * (1 + self::MARKUP / 100));
+        }
+    }
+
+    private function addDiscount(): void
+    {
+        foreach ($this->items->collection() as $product)
+        {
+            $product->setPrice($product->price() * (1 - self::DISCOUNT / 100));
+        }
     }
 }

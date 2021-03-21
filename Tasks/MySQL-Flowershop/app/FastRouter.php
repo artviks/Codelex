@@ -1,8 +1,8 @@
 <?php
 
-class App
+class FastRouter
 {
-    public static function load($dispatcher): void
+    public static function load($dispatcher, $shop): void
     {
         $routeInfo = $dispatcher->dispatch(
             self::requestMethod(),
@@ -21,7 +21,7 @@ class App
             case FastRoute\Dispatcher::FOUND:
                 $handler = $routeInfo[1];
                 [$class, $method] = $handler;
-                (new $class)->$method();
+                (new $class)->$method($shop);
                 break;
         }
     }

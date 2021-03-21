@@ -2,4 +2,6 @@
 
 require 'vendor/autoload.php';
 
-App::load(require 'app/routes.php');
+$shop = new \Shop\models\Shop();
+
+FastRouter::load(require 'app/routes.php', $shop);
