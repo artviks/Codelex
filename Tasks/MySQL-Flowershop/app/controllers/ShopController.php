@@ -17,6 +17,7 @@ class ShopController
     public function discount($shop): void
     {
         $shop->discount();
+
         $this->table($shop);
     }
 
