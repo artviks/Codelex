@@ -7,14 +7,14 @@ use Shop\models\Shop;
 class ShopController
 {
 
-    public function table($shop): void
+    public function table(Shop $shop): void
     {
         $flowers = $shop->items()->collection();
 
         require __DIR__ . '.\..\views\shop.view.php';
     }
 
-    public function discount($shop): void
+    public function discount(Shop $shop): void
     {
         $shop->discount();
 

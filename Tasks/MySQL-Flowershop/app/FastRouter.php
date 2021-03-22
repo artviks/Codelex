@@ -2,7 +2,7 @@
 
 class FastRouter
 {
-    public static function load($dispatcher, $shop): void
+    public static function load($dispatcher, \Shop\models\Shop $shop): void
     {
         $routeInfo = $dispatcher->dispatch(
             self::requestMethod(),
