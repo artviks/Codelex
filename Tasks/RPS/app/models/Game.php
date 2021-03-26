@@ -29,24 +29,20 @@ class Game
         $this->user = $this->elements[$user];
     }
 
-    public function getResults(): array
+    public function getResults(): string
     {
         $this->setComputer();
 
-        $results = [
-            $this->user->name(),
-            $this->computer->name(),
-            'Lost'
-        ];
+        $results = 'Lost';
 
         if ($this->isTie())
         {
-           $results[2] = 'Tie';
+           $results = 'Tie';
         }
 
         if ($this->hasWon())
         {
-            $results[2] = 'Won';
+            $results = 'Won';
         }
 
         return $results;

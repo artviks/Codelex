@@ -31,9 +31,9 @@
 
     <?php if(isset($results)) : ?>
 
-    <p>Player: <?= $results[0] ?></p>
-    <p>Computer: <?= $results[1] ?></p>
-    <p class="results">Results: <?= $results[2] ?></p>
+    <p>Player: <?= $game->getUser()->name() ?></p>
+    <p>Computer: <?= $game->getComputer()->name() ?></p>
+    <p class="results">Results: <?= $results ?></p>
 
     <?php endif; ?>
 
