@@ -1,6 +1,5 @@
 {
-    "name": "artur/garage",
-    "description": "",
+    "name": "artur/rps",
     "authors": [
         {
             "name": "Artūrs Vīksne",
@@ -8,11 +7,13 @@
         }
     ],
     "require": {
-      "ext-json": "*"
+        "phpunit/phpunit": "^9.5"
     },
+    "description": "",
     "autoload": {
-        "classmap": [
-            "./"
-        ]
+        "psr-4": {
+            "App\\": "app/models",
+            "Tests\\": "tests"
+        }
     }
 }

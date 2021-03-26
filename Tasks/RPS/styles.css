@@ -1,0 +1,36 @@
+
+html, body {
+    text-align: center;
+    font: 1rem 'Fira Sans', sans-serif;
+}
+
+input {
+    margin: 1rem;
+}
+
+
+.button {
+    width: 100px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: lightgray;
+    border: solid 1px transparent;
+    color: darkblue;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all .1s ease-in-out;
+}
+
+.button:hover {
+    background-color: transparent;
+    border-color: #fff;
+}
+
+.results {
+    color: darkblue;
+    font-weight: bolder;
+}
+
+
+
+
